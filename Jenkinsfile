@@ -41,7 +41,7 @@ pipeline {
             }
           
         }
-      	stage("测试敏感词")
+      	stage("测试敏感词"){
       		steps {
             	echo "Username: ${env.username}"
             	echo "Password: ${env.password}"
