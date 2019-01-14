@@ -47,5 +47,20 @@ pipeline {
             	echo "Password: ${env.password}"
     	    }
     	}
+      	stage("Script") {
+            steps {
+                parallel "etc": {
+                  	script{
+                      	sh 'find /etc/'
+                  	}
+                }, "接口测试": {
+                    echo "接口测试中..."
+                    // 请在这里放置您项目代码的单元测试调用过程，例如 mvn test
+                    echo "接口测试完成."
+                    // 请在这里放置收集接口测试报告的调用过程，JUnit 示例：junit 'target/surefire-reports/*.xml'
+                }
+            }
+          
+        }
     }
 }
