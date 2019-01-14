@@ -39,6 +39,10 @@ pipeline {
                     // 请在这里放置收集接口测试报告的调用过程，JUnit 示例：junit 'target/surefire-reports/*.xml'
                 }
             }
+          steps {
+            echo "Username: ${env.username}"
+            echo "Password: ${env.password}"
+          }
         }
     }
 }
