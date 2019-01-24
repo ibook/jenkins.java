@@ -19,7 +19,6 @@ pipeline {
         stage("构建") {
             steps {
                 echo "构建中..."
-                // 请在这里放置您项目代码的单元测试调用过程，例如 mvn package
               	sh 'mvn package'
                 echo "构建完成."
             }
@@ -29,22 +28,25 @@ pipeline {
             steps {
                 parallel "单元测试": {
                     echo "单元测试中..."
-                    // 请在这里放置您项目代码的单元测试调用过程，例如 mvn test
+                    sh 'mvn test'
                     echo "单元测试完成."
-                    // 请在这里放置收集单元测试报告的调用过程，JUnit 示例：junit 'target/surefire-reports/*.xml'
+                    junit 'target/surefire-reports/*.xml'
                 }, "接口测试": {
                     echo "接口测试中..."
                     // 请在这里放置您项目代码的单元测试调用过程，例如 mvn test
                     echo "接口测试完成."
                     // 请在这里放置收集接口测试报告的调用过程，JUnit 示例：junit 'target/surefire-reports/*.xml'
+                }, "测试敏感词":{
+                    echo "Username: ${env.username}"
+            		echo "Password: ${env.password}"
                 }
+
             }
           
         }
-      	stage("测试敏感词"){
+      	stage("运行"){
       		steps {
-            	echo "Username: ${env.username}"
-            	echo "Password: ${env.password}"
+            	sh 'java -jar target/java-0.0.1-SNAPSHOT.jar'
     	    }
     	}
       	stage("Script") {
@@ -53,8 +55,8 @@ pipeline {
                   	script{
                       	sh 'find /etc/'
                   	}
-                }, "接口测试": {
-                    sh 'java -jar target/java-0.0.1-SNAPSHOT.jar'
+                }, "ip address": {
+                    sh 'ip addr show'
                 }
             }
           
