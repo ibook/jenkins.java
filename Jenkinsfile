@@ -30,7 +30,7 @@ pipeline {
                     echo "单元测试中..."
                     sh 'mvn test'
                     echo "单元测试完成."
-                    junit 'target/surefire-reports/*.xml'
+                    // junit 'target/surefire-reports/*.xml'
                 }, "接口测试": {
                     echo "接口测试中..."
                     // 请在这里放置您项目代码的单元测试调用过程，例如 mvn test
