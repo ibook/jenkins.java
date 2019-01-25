@@ -20,6 +20,7 @@ pipeline {
             steps {
                 echo "构建中..."
               	sh 'mvn package'
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 echo "构建完成."
             }
         }
