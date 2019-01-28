@@ -5,6 +5,19 @@ pipeline {
         label "java-8"
     }
     stages  {
+
+     	stage("环境") {
+            steps {
+                parallel "Maven": {
+                  	script{
+                      	sh 'mvn -version'
+                  	}
+                }, "Java": {
+                    sh 'java -version'
+                }
+            }
+          
+        }
         
         stage("检出") {
             steps {
@@ -50,17 +63,6 @@ pipeline {
             	sh 'java -jar target/java-0.0.1-SNAPSHOT.jar'
     	    }
     	}
-      	stage("Script") {
-            steps {
-                parallel "etc": {
-                  	script{
-                      	sh 'find /etc/'
-                  	}
-                }, "ip address": {
-                    sh 'ip addr show'
-                }
-            }
-          
-        }
+ 
     }
 }
