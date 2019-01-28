@@ -32,7 +32,7 @@ pipeline {
         stage("构建") {
             steps {
                 echo "构建中..."
-              	sh 'mvn package'
+              	sh 'mvn package -Dmaven.test.skip=true'
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 echo "构建完成."
             }
